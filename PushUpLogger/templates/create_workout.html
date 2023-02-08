@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+
+{% block head %}
+
+    {{ super() }}
+
+    <link 
+        rel="stylesheet" 
+        href=" {{ url_for('static', filename='extended_beauty.css') }}"
+    >
+
+{% endblock %}
+
+
+{% block content %}
+<div class="col-md-4 col-mid-offset-4">
+    <form method="POST" action="/new">
+      <h2>Add New Workout</h2>
+
+      <!-- getting the number of pushups done -->
+      <div class="form-group">
+        <label class="form-label" for="pushups">Pushups</label>
+        <input type="number" id="pushups" name="pushups" class="form-control"
+               area-describedby="PushupHelp"
+               placeholder="Enter the pushups done"
+        />
+      </div>
+
+      <!-- getting any comments -->
+      <div class="form-group">
+        <label class="form-label" for="comment">Comment</label>
+        <input type="text" id="comment" class="form-control" name="comment"
+               aria-describedby="PushupHelp"
+               placeholder="Have any comment?"
+        />
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary">Add Workout</button>
+    </form>
+</div>
+{% endblock %}

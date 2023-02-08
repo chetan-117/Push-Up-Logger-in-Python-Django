@@ -1,0 +1,69 @@
+{% extends "base.html" %} 
+
+{% block head %}
+
+	{{ super() }}
+
+	<link 
+			rel="stylesheet" 
+			href=" {{ url_for('static', filename='extended_beauty.css') }}"
+	>
+
+{% endblock %}
+
+
+{% block content %}
+<h1 style="text-align: center">
+		Welcome, <strong> {{ user.name }}! </strong>
+</h1>
+
+<center>
+	<div>
+		{% with messages=get_flashed_messages() %}
+			{% if messages %}
+				<div class=flashes>
+					{{ messages[0] }}
+				</div>
+			{% endif %}
+		{% endwith %}
+		
+		<table class="table table-hover" style="width:700px">
+			<!-- first need to create the heading for the table that I need -->
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Number of Pushups</th>
+					<th scope="col">Performed At</th>
+					<th scope="col">Comments</th>
+				</tr>
+			</thead>
+	
+			<!-- this is the actual table body -->
+			<tbody>
+				<!-- automating the whole task with python -->
+				{% for workout in workouts %} 
+					<tr>
+						<td> {{ workout.pushups }}</td>
+						<td> {{ workout.date_posted.strftime('%m/%d/%Y %H:%M') }}</td>
+						<td> {{ workout.comment }}</td>
+						<td>
+							<a
+								href=" {{ url_for('main.update_workout', workout_id = workout.id) }}"
+								class="btn btn-outline-primary"
+								role="button"
+							>EDIT</a>
+						</td>
+						<td>
+							<a
+								href=" {{ url_for('main.delete_workout', workout_id = workout.id) }} "
+								class="btn btn-outline-danger"
+								role="button"
+							>Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	
+		</table>
+	</div>
+</center>
+{% endblock %}
